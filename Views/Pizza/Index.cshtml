@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNetCore.Html
+@{
+    ViewData["Title"] = "La mia prima  pizzeria";
+    Layout = "~/Views/Shared/_LayoutIndex.cshtml";
+}
+@model la_mia_pizzeria_static.Models.PizzaList
+
+<section class="row gx-3"> 
+    @if(Model.FoodMenu == null)
+    {
+        <div> <span> Non  ci sono elementi nel menu</span> </div>
+    }
+    else
+    {
+        <div class="col-12 text-center text-uppercase text-danger display-2 mb-3">Le nostre pizze</div>
+        @foreach (var Pizza in Model.FoodMenu)
+        {
+            <div class="col-12 col-sm-6 col-md-4">
+                <a href="@Url.Action("Details","Pizza", new{Id = @Pizza.Id})">
+                    <div class="card mb-2" style="width: 18rem;">
+                        <img src="@Url.Content(Pizza.PhotoPath)" class="card-img-top"  width="18rem" height="200px" />
+                        <div class="card-body">
+                        <h5 class="card-title text-black">@Pizza.Title</h5>
+                        <p class="card-text text-black">@Pizza.Description</p>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Aggiungi al carrello
+                        </button>
+                        <span class="btn btn-danger text-white">@Pizza.Price &euro;</span>
+                        </div>
+                    </div>   
+                </a>
+            </div>
+        }
+    }
+</section>
